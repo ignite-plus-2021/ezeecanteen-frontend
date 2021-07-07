@@ -48,7 +48,7 @@ export default class SignUp extends Component {
                         </div>
                         <br></br>
 
-                        <button type="submit" className="btn btn-primary btn-block" id="SignUpButton" onClick={() => history.push('/BrowseFood')}>Sign Up</button>
+                        <button type="submit" className="btn btn-primary btn-block" id="SignUpButton" onClick={() => history.push('/Login')}>Sign Up</button>
                         <p className="forgot-password text-right">
                             Already registered
                             <Link to='./Login' className="forgot-password text-right"> sign in?</Link>

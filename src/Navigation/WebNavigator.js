@@ -9,7 +9,7 @@ const WebNavigator = (props) => {
             <Router>
 
                 <Switch>
-                    <Route path="/" exact component={Login} />
+                    <Route path="/Login" exact component={Login} />
                     <Route path="/BrowseFood" exact component={BrowseFood} />
                     <Route path="/SignUp" exact component={SignUp} />
                 </Switch>

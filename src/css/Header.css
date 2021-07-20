@@ -1,0 +1,30 @@
+.header{
+    background-color: #183454;
+    display:flex;
+    align-items: center;
+    
+}
+.header__first{
+    padding: 5px;
+    flex: 1;
+}
+.header__first>img{
+    width:200px;
+   object-fit:contain;
+}
+.header__second{
+    align-items: center;
+    padding-right: 20px;
+    color:white;
+    display: flex;
+}
+.header__second>.MuiSvgIcon-root{
+    color: white;
+}
+.header__third{
+    align-items: center;
+    padding-right: 20px;
+}
+.header__third>.MuiSvgIcon-root{
+    color: white;
+}

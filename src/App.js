@@ -1,15 +1,11 @@
 import React from 'react';
 import './App.css';
-
-import WebNavigator from './WebNavigator';
-function App() {
+import WebNavigator from './Navigation/WebNavigator';
+const App = () => {
   return (
-    <div className="App">
+    <div>
       <WebNavigator />
     </div>
   );
 }
-
-
-
 export default App;

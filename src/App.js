@@ -1,9 +1,7 @@
 import React from 'react';
-import WebNavigator from '../src/Navigation/WebNavigator';
-
-function App() {
-
-
+import './App.css';
+import WebNavigator from './Navigation/WebNavigator';
+const App = () => {
   return (
     <div>
       <WebNavigator />

@@ -6,6 +6,7 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
 .LoginInput {
   border: solid;
   border-width: 1px;
@@ -47,10 +48,16 @@
   align-items: center;
 }
 
-.LoginLink {
+.LoginLink,
+.LoginLink:visited,
+.LoginLink:active,
+.LoginLink:link {
   color: aliceblue;
   text-decoration: none;
   font-weight: bold;
+  background-color: transparent;
+  width: 100px;
+  height: 35px;
 }
 .LoginLink:hover {
   text-decoration: none;
@@ -59,8 +66,7 @@
 .Logo {
   width: 300px;
 }
-.btn,
-.btn:hover {
+#Submit {
   background-color: #d60a88;
   border: none;
   height: 35px;
@@ -77,8 +83,15 @@
 }
 .SignUpTag {
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   color: rgb(172, 172, 172);
   margin-top: 10px;
+}
+.PasswordLink {
+  font-size: 15px;
+  color: white;
 }
 .LoginIcon {
   width: 15px;

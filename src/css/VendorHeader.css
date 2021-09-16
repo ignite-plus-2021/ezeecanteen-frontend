@@ -1,0 +1,27 @@
+.header2 {
+  background-color: #183454;
+  display: flex;
+  align-items: center;
+  height: 80px;
+  padding: 0;
+}
+.header2__first {
+  padding-left: 20px;
+  flex: 1;
+}
+.header2__first > img {
+  width: 200px;
+  height: 150px;
+  object-fit: contain;
+  object-position: left;
+}
+.header2__second {
+  align-items: center;
+  padding-right: 60px;
+  color: white;
+  height: 100px;
+  display: flex;
+}
+.header2__second > .MuiSvgIcon-root {
+  color: white;
+}

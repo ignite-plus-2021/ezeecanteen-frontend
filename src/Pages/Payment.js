@@ -6,7 +6,6 @@ import Axios from 'axios'
 
 function CompletePayment(props) {
     console.log(props.location.state.data);
-
     var data = props.location.state.data;
     console.log(data);
     const loginEmail = { email: props.location.state.data.email }
@@ -25,10 +24,6 @@ function CompletePayment(props) {
                     You will be notified once it is ready
                     <br></br>
                 </p>
-                {/*<Link to={{
-          pathname:"/BrowseFood",
-          state:{username}
-          }}>*/}
                 <Link to={{
                     pathname: "/BrowseFood",
                     state: {

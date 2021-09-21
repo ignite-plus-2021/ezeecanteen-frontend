@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import history from './../history';
 import '../css/ForgotPassword.css';
 import Axios from "axios";
 import Logo from "../assets/logos/logo_.jpeg"
-
 class ForgotPassword extends Component {
     constructor(props) {
         super(props);
@@ -13,12 +11,6 @@ class ForgotPassword extends Component {
             password: ''
         };
     }
-
-    // state = {
-    //     email:'',
-    //     password:''
-    // }
-
     state = {
         isPasswordShown: false
     };
@@ -29,8 +21,6 @@ class ForgotPassword extends Component {
     };
 
     forgotpassword = (props) => {
-        //console.log(props);
-
         this.setState({ email: this.state.email });
         this.setState({ password: this.state.password });
         console.log({ email: this.state.email });
@@ -45,16 +35,8 @@ class ForgotPassword extends Component {
                 if (response.data.message) {
                     alert(response.data.message);
                 }
-
-                // this.setState({ email: this.state.email });
-                //this.setState({password: this.state.password});
-
             }).catch(error => console.log(error));
-
     }
-
-
-
     render() {
         const { isPasswordShown } = this.state;
         return (
@@ -66,13 +48,11 @@ class ForgotPassword extends Component {
                 <div className="Container">
                     <form>
                         <h3>Reset Password</h3>
-
                         <div className="form-group">
                             <label>Email address</label>
                             <input type="email" className="form-control" placeholder="Enter email" onInput={(e) => this.setState({ email: e.target.value })} pattern="[a-z@.]{10-100}" required />
                         </div>
                         <br></br>
-
                         <div className="form-group">
                             <label>New Password</label>
                             <input type={isPasswordShown ? "text" : "password"} className="form-control" onInput={(e) => this.setState({ password: e.target.value })} placeholder="Enter password" required />
@@ -81,7 +61,6 @@ class ForgotPassword extends Component {
                         <div className="form-group">
                             <label>OTP</label>
                             <input placeholder="Enter OTP" className="form-control" required />
-
                         </div>
                         <br></br>
                         <Link to='/' >

@@ -1,28 +1,17 @@
 import React, { Component } from 'react';
 import EzeeCanteenLogo from '../assets/logos/logo_.jpeg';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
 import '../css/Login.css';
 import Axios from "axios";
-// import BrowseFood from '../Pages/BrowseFood';
-
 
 class Login extends Component {
-
-
     constructor(props) {
         super(props);
-
         this.state = {
             email: "",
-            password: "",
-            visible: 0
-
+            password: ""
         };
-
-
     }
-
     loginfunction = (props) => {
 
         Axios.post('http://localhost:3001/login',
@@ -30,16 +19,12 @@ class Login extends Component {
                 email: this.state.email,
                 password: this.state.password
             }).then((response) => {
-
-                // console.log(response.data.data[0].usertype)
                 if (response.data.message) {
 
                     alert(response.data.message);
                     console.log(this.state.visible);
                 }
                 else {
-                    // this.props.history.push("/BrowseFood");
-                    // this.state.visible = 1;
                     if (response.data.data[0].usertype === 'Personal') {
                         const fullName = response.data.data[0].fullname;
                         this.props.history.push({
@@ -49,25 +34,15 @@ class Login extends Component {
                                 fullName: fullName
                             }
                         });
-
-                        this.setState({ visible: 1 })
                         console.log(this.state.visible);
                     }
                     else if (response.data.data[0].usertype === 'Business') {
                         this.props.history.push('/FoodPartnerHome')
-                        this.setState({ visible: -2 })
                         console.log(this.state.visible);
                     }
                 }
-
             })
-
     }
-
-
-
-
-
     render = () => {
         return (
             <div className="LoginContainer">
@@ -96,7 +71,7 @@ class Login extends Component {
                             <input className="LoginInputBox" id="password" type="password" name="password" placeholder="Password" required="true"
                                 onChange={(e) => this.setState({ password: e.target.value })} /><br />
                         </div>
-                        <Link to={this.state.visible > 0 ? '/BrowseFood' : '/'} className="LoginLink" onClick={this.loginfunction}>
+                        <Link className="LoginLink" onClick={this.loginfunction}>
                             <button type="submit" className="btn btn-primary btn-lg btn-block" id="Submit" >
                                 SIGN IN
                             </button>

@@ -7,7 +7,6 @@ import Card from '../components/Card';
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
 
-
 function BrowseFood(props) {
 
     const [foodstate, setFoodState] = useState('snacks');
@@ -20,12 +19,7 @@ function BrowseFood(props) {
             setOrderNo(response.data)
         });
     }, []);
-    // console.log(orderNo);
-
-    // //console.log(orderNo[0].orderNo);
-    // //var ord=orderNo[0].orderNo;
     const [ord, setOrd] = useState(0);
-    // //setOrd(orderNo[0].orderNo);
     const set = () => {
         setOrd(orderNo[0].orderNo);
         console.log(ord);
@@ -47,49 +41,15 @@ function BrowseFood(props) {
         console.log(newList[id]);
         set();
     }
-    selectList.forEach(element => {
-        if (element === undefined) {
-            console.log("nothing");
-        }
-        else {
-            if (element[6] === 'p') {
-                grandTotal = grandTotal + element[3];
-                Totalcount = Totalcount + 1;
-                //Totalcount=Totalcount+element[5];
-                console.log(Totalcount);
-                //setGrandTotal(grandTotal+element[3]);
-                //console.log("TOtal is p "+grandTotal);
-            }
-            else if (element[6] === 'n') {
-                grandTotal = grandTotal - element[3];
-                Totalcount = Totalcount + 1;
-                console.log(Totalcount);
-                //setGrandTotal(grandTotal-element[3]);
-                //console.log("Total is n "+grandTotal);
-            }
-            else if (element[6] === 'cp') {
-                Totalcount = Totalcount + element[5];
-                grandTotal = grandTotal + element[3];
-                console.log(Totalcount);
-            }
-            else if (element[6] === 'cn') {
-                Totalcount = Totalcount - element[5];
-                grandTotal = grandTotal - element[3];
-                console.log(Totalcount);
-            }
-        }
-    });
+    const [count, setcount] = useState([]);
+
+
     const onNumberChange = () => {
         setNumber(number);
     }
     console.log()
     console.log("Total is " + Totalcount);
     console.log("The array elements are: " + selectList);
-
-    // const n = selectList[1][2]
-
-    // console.log(selectList[1][6]);
-
     const [menuList, setMenuList] = useState([])
     const [lunchList, setLunchList] = useState([])
     const [snackList, setSnackList] = useState([])
@@ -97,7 +57,6 @@ function BrowseFood(props) {
 
         Axios.get('http://localhost:3001/api/get/breakfast').then((response) => {
             setMenuList(response.data)
-            //console.log(response.data);
         });
     }, []);
 
@@ -118,30 +77,42 @@ function BrowseFood(props) {
         });
     }, []);
 
+
     selectList.forEach(element => {
+        // console.log("ee" + element[6])
         if (element === undefined) {
             console.log("nothing");
         }
         else {
             if (element[5] === 'p') {
                 grandTotal = grandTotal + element[3];
-
-                Totalcount++;
+                Totalcount = Totalcount + 1;
+                console.log(Totalcount);
             }
             else if (element[5] === 'n') {
-                grandTotal = grandTotal - element[3];
-                Totalcount++;
+                grandTotal = (grandTotal - element[3]);
+                // Totalcount = Totalcount - 1;
+                console.log(Totalcount);
             }
+            else if (element[5] === 'cp') {
+                Totalcount = Totalcount + element[4];
+                grandTotal = grandTotal + element[3];
+                console.log(Totalcount);
+            }
+            else if (element[5] === 'cn') {
+                // Totalcount = Totalcount - element[5];
+                grandTotal = (grandTotal - element[3]);
+                console.log(Totalcount);
+            }
+        }
+        if (grandTotal < 0) {
+            grandTotal = grandTotal * -1;
         }
     });
 
     console.log("Grand Total is" + grandTotal);
-    // //console.log(selectList);
-
     const [loginName, setFullName] = useState();
     const [email, setemail] = useState()
-
-
     useEffect(() => {
         if (props.location && props.location.state && props.location.state.email) {
             const email = props.location.state.email;
@@ -149,9 +120,6 @@ function BrowseFood(props) {
             setFullName({ fullname: loginName });
             setemail({ email: email })
         }
-        // Axios.get('http://localhost:3001/api/get').then((response) => {
-        //     setMenuList(response.data)
-        // });
     }, []);
     const [users, setUsers] = useState([]);
     useEffect(() => {
@@ -160,33 +128,22 @@ function BrowseFood(props) {
         });
     }, []);
     console.log(users);
-
-
     var num = 0;
     var userId;
-
     users.forEach((element) => {
         if (element.fullname === fullName) {
             userId = element.userid;
             num = 1;
         }
-
-        console.log("wdwfgrtrg")
-        // console.log(loginName.fullname)
     });
-
     const [id, setId] = useState(0);
-
     console.log("USER ID IS");
     console.log(userId);
-
     let dineOption = 'breakfast';
     const setDineOption = () => {
         const d = new Date();
-
         var h = d.getHours();
         var m = d.getMinutes();
-
         var bstart = 8
         var bEndHr = 11;
         var bEndMin = 30;
@@ -206,16 +163,11 @@ function BrowseFood(props) {
             dineOption = 'snacks';
         }
     }
-
     setDineOption();
     var food = foodstate;
-
-
     return (
         <div>
-
             <Header loginDetails={loginName} loginEmail={email} number={Totalcount} onNumberChange={onNumberChange} />
-
             <div className="dropdownb">
                 {(() => {
 
@@ -232,8 +184,6 @@ function BrowseFood(props) {
                             </select>
                         </div>
                     )
-
-
                 })()}
                 <div className="dropdown__2">
                     <select className="selectb" name="store" id="store">
@@ -253,8 +203,6 @@ function BrowseFood(props) {
                             starRatedColor="#183454"
                         />
                     </div>
-
-
                     <div>
 
                         {
@@ -316,21 +264,12 @@ function BrowseFood(props) {
                                 )
                             }
                         })}
-
-
-
-
                     </div>
-
-
                 </div>
-
-
             </div>
-
             <div>
                 {(() => {
-                    if (selectList.length >= 1) {
+                    if (selectList.length >= 1 && grandTotal != 0) {
                         return (
                             <div className="footer" style={{ display: 'flex', justifyContent: "end" }} >
                                 <p id="total">SubTotal: Rs.{grandTotal}</p>
@@ -338,94 +277,15 @@ function BrowseFood(props) {
                                 <Link to={{
                                     pathname: "/Checkout",
                                     state: { ...selectList, data, ord, userId, foodstate }
-                                }}>
+                                }} >
                                     <button type="submit" id="cont" >Continue</button>
                                 </Link>
                             </div>
                         )
-
                     }
                 })()}
             </div>
-
         </div>
     )
-
-
 }
-
-
-
 export default BrowseFood
-
-//     return (
-//         <div >
-//             <Header loginDetails={loginName} loginEmail={email} />
-
-//             <div className="dropdownb">
-//                 <div className="dropdown__1">
-
-//                     <select className="selectb" name="timings" id="timings">
-//                         <option value="breakfast">Breakfast (8am-11:30am)</option>
-//                         <option value="lunch">Lunch (12pm-3pm)</option>
-//                         <option value="snacks">Snacks - All day</option>
-//                     </select>
-//                 </div>
-//                 <div className="dropdown__2">
-//                     <select className="selectb" name="store" id="store">
-//                         <option value="shanti_sagar">Shanti Sagar</option>
-//                     </select>
-//                 </div>
-//             </div>
-//             <div className="col">
-//                 <div className="v1"></div>
-//                 <div className="column2">
-//                     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline' }}>
-//                         <h1 style={{ paddingRight: '20px' }}>Shanti Sagar</h1>
-//                         <StarRatings
-//                             rating={3}
-//                             starDimension="20px"
-//                             starSpacing="2px"
-//                             starRatedColor="#183454"
-//                         />
-//                     </div>
-//                     <div>
-//                         {menuList.map((val) => {
-//                             return (
-//                                 <div style={{ display: 'flex', flexWrap: "wrap" }}>
-//                                     <Card id={val.id} image={val.image.data} price={val.Cost} names={val.Name} rating={val.Rating} votes={val.Votes} handleQuery={handleQuery} />
-//                                 </div>
-//                             )
-//                         })}
-
-//                     </div>
-
-//                 </div>
-
-//             </div>
-//             <div >
-//                 {(() => {
-//                     if (selectList.length >= 1) {
-//                         return (
-//                             <div className="footer" style={{ display: 'flex', justifyContent: "end" }} >
-//                                 <p id="total">SubTotal: Rs.{grandTotal}</p>
-//                                 &nbsp;&nbsp;
-//                                 <Link to={{
-//                                     pathname: "/Checkout",
-//                                     state: { ...selectList, fullName, ord, userId }
-//                                 }}>
-//                                     <button type="submit" id="cont" >Continue</button>
-//                                 </Link>
-//                             </div>
-//                         )
-
-//                     }
-//                 })()}
-//             </div>
-
-//         </div>
-//     )
-
-// }
-
-// export default BrowseFood;

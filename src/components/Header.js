@@ -9,95 +9,25 @@ import Axios from 'axios';
 import '../css/userdetails.css';
 import userimg from '../assets/Images/userimage.png';
 class Header extends React.Component {
-
-
     constructor(props) {
         super(props);
-
         this.state = {
             fullName: "",
             email: "",
             isLoaded: false,
             logindetails: [3]
-
-
         };
-        //this.handleChange = this.handleChange.bind(this);
     };
-    // fullName = 
-    /* handleChange(event) {
-    this.setState({fullName: event.target.fullName});
-     }
-
-   /*state={
-       name:''
-   };
-   
-   handleParentData = (formModel) => {
-       this.setState({...formModel});
-     }
-
-     componentDidMount = () => {
-         fetch('http://localhost:3001/api/insert')
-         .then(res =>res.json())
-         .then(json => {
-             this.setState({
-                 isLoaded:true,
-                 fullName:json,
-             });
-         });
-         //this.fullName();
-     };*/
-
     componentDidMount = () => {
-
-
-
     };
-    // loginuser = (props) => {
-
-
-    //     Axios.post('http://localhost:3001/loginuser',
-    //         {
-    //             email: this.props.loginEmail.email,
-
-    //         }).then((response) => {
-    //             console.log(response)
-    //             const logindetails1 = response.data[0];
-    //             this.setState({ logindetails: response.data[0] })
-    //             console.log("Details are")
-    //             console.log(this.state.logindetails)
-
-    //         })
-    //     // console.log(this.state.logindetails)
-    // }
-
-    // console.log(response.data.data[0].usertype)
-
-
-
-
-    /*displayName = (name) => {
-        if(!name.length) return null;
-        return name.map((name,index) => (
-            <div key={index}>
-                <p>{name}</p>
-            </div>
-        ));
-    };*/
-
     state = {
         badgeContent: 0
     };
     handleInputChange = (event) => {
         this.props.onNumberChange(event.target.value)
     }
-
     render() {
-
-
         var { isLoaded, fullName, email } = this.state;
-
         const { loginDetails } = this.props;
         const LoginEmail = this.props.loginEmail
         console.log("errgt")
@@ -114,16 +44,12 @@ class Header extends React.Component {
                 email = LoginEmail.email
             }
         }
-
-        // const details = loginDetails.email
-        // console.log(this.props.loginEmail.email)
         console.log("Fullname in header")
         console.log(loginDetails)
         console.log(fullname)
         console.log(email)
         return (
             <div>
-                {/*<Login handleData={this.handleParentData}/>*/}
                 <div className="header1">
                     <div className="header__first">
                         <img src={logo} alt="logo" />
@@ -151,7 +77,7 @@ class Header extends React.Component {
                         </div></div>
                     <div className="header__third">
                         <Badge onChange={this.handleInputChange} badgeContent={this.props.number} color="secondary" showZero>
-                            {/*<Badge  badgeContent={0} color="secondary" showZero>*/}
+
                             <ShoppingCartIcon fontSize="large" htmlColor="white" />
                         </Badge>
                     </div>
@@ -178,17 +104,8 @@ class Header extends React.Component {
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
             </div>
-
-
         );
     }
 }
 export default Header
-

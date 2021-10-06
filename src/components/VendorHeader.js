@@ -4,7 +4,6 @@ import '../css/VendorHeader.css';
 import logo from '../assets/logos/logo_.jpeg';
 
 class VendorHeader extends React.Component {
-
     render() {
         return (
             <div>
@@ -25,7 +24,6 @@ class VendorHeader extends React.Component {
                 </div>
             </div>
         );
-        //}
     }
 }
 export default VendorHeader

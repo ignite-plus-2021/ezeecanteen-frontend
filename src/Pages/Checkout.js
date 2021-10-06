@@ -107,11 +107,11 @@ function Payment(props) {
     var cvcnumDecrypt;
     console.log("Is account present" + accountPresent);
     if (accountPresent === 1) {
-        var bytes = CryptoJS.AES.decrypt(cno, 'encrypt');
+        var bytes = CryptoJS.AES.decrypt(cno, 'my-secret-key@123');
         cnoDecrypt = bytes.toString(CryptoJS.enc.Utf8);
-        var bytes1 = CryptoJS.AES.decrypt(expd, 'encrypt');
+        var bytes1 = CryptoJS.AES.decrypt(expd, 'my-secret-key@123');
         expdDecrypt = bytes1.toString(CryptoJS.enc.Utf8);
-        var bytes2 = CryptoJS.AES.decrypt(cvcnum, 'encrypt');
+        var bytes2 = CryptoJS.AES.decrypt(cvcnum, 'my-secret-key@123');
         cvcnumDecrypt = bytes2.toString(CryptoJS.enc.Utf8);
     }
     console.log(grandTotal);
@@ -122,13 +122,13 @@ function Payment(props) {
     const [presentstatus, setPresentStatus] = useState(true);
     const [cvcInput, setCVCInput] = useState(0);
     if (cardNo !== "" && edate !== "" && cvcNo !== "") {
-        var cardNoEncrypt = CryptoJS.AES.encrypt(cardNo, 'encrypt').toString();
+        var cardNoEncrypt = CryptoJS.AES.encrypt(cardNo, 'my-secret-key@123').toString();
         console.log('Encrypt Data -')
         console.log(cardNoEncrypt);
-        var edateEncrypt = CryptoJS.AES.encrypt(edate, 'encrypt').toString();
+        var edateEncrypt = CryptoJS.AES.encrypt(edate, 'my-secret-key@123').toString();
         console.log('Encrypt Data edate-')
         console.log(edateEncrypt);
-        var cvcNoEncrypt = CryptoJS.AES.encrypt(cvcNo, 'encrypt').toString();
+        var cvcNoEncrypt = CryptoJS.AES.encrypt(cvcNo, 'my-secret-key@123').toString();
         console.log('Encrypt Data cvc no-')
         console.log(cvcNoEncrypt);
     }

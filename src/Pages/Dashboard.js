@@ -5,6 +5,7 @@ import emailjs from 'emailjs-com';
 import Axios from 'axios';
 
 const OrderDash = (props) => {
+
     var date = new Date();
     var day = date.getDate();
     var month = date.getMonth() + 1;
@@ -35,7 +36,7 @@ const OrderDash = (props) => {
                 if (response.data.message) {
                     var options = {
                         body: "Order completed successfully",
-                        dir: "ltr"
+
                     };
                     var notification = new Notification("ORDER COMPLETED!", options);
                 }
@@ -54,7 +55,27 @@ const OrderDash = (props) => {
                 console.log(response);
             });
         }
+
+
     }
+    var count = menuList.length
+    console.log(count)
+    const [a, seta] = useState([])
+    for (var i = 0; i < count; i++) {
+        a[i] = menuList[i].orderStatus
+        Axios.post('http://localhost:3001/orderstatus1', {
+
+            Oid: menuList[i].id,
+            oNo: menuList[i].orderNo
+        }).then((response) => {
+
+
+        }).catch((err) => {
+            console.log(err)
+        });
+
+    }
+    var j = 0
     console.log(time);
     return (
         <div>
@@ -85,26 +106,38 @@ const OrderDash = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {menuList.map((val, i) => {
-                            return (
-                                <tr>
-                                    <td>{val.id}</td>
-                                    <td>{val.orderNo}</td>
-                                    <td>{val.itemName}</td>
-                                    <td>{val.itemQty}</td>
-                                    <td>{val.username}</td>
-                                    <td>{val.timetest}</td>
-                                    <td>
-                                        <select name="status" id="status" onChange={(event) => handleChange(event, val.id, val.orderNo)}>
-                                            <option value="In Progress">In Progress</option>
-                                            <option value="Completed">Completed</option>
-                                        </select>
-                                    </td>
 
-                                    <td>{time[i]}</td>
-                                </tr>
-                            )
-                        })}
+                        {
+                            menuList.map((val, l) => {
+                                // for (var i = 0; i < count; i++) {
+
+                                if (val.orderStatus === "In Progress") {
+
+                                    return (
+
+                                        <tr>
+                                            <td>{val.id}</td>
+                                            <td>{val.orderNo}</td>
+                                            <td>{val.itemName}</td>
+                                            <td>{val.itemQty}</td>
+                                            <td>{val.username}</td>
+                                            <td>{val.timetest}</td>
+                                            <td>
+                                                <select name="status" id="status" onChange={(event) => handleChange(event, val.id, val.orderNo)} >
+                                                    <option value="In Progress">In Progress</option>
+                                                    <option value="Completed">Completed</option>
+                                                </select>
+                                            </td>
+
+                                            <td>{time[l]}</td>
+                                        </tr>
+                                    )
+                                }
+
+
+                            }
+
+                            )}
 
                     </tbody>
                 </table>

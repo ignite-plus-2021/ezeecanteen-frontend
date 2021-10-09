@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 function BrowseFood(props) {
 
-    const [foodstate, setFoodState] = useState('snacks');
+    const [foodstate, setFoodState] = useState('');
     var fullName = props.location.state.fullName;
     var data = props.location.state;
     var grandTotal = 0;

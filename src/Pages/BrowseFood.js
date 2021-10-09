@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 function BrowseFood(props) {
 
-    const [foodstate, setFoodState] = useState('');
+    const [foodstate, setFoodState] = useState('lunch');
     var fullName = props.location.state.fullName;
     var data = props.location.state;
     var grandTotal = 0;
@@ -40,6 +40,7 @@ function BrowseFood(props) {
         setSelectList(newList);
         console.log(newList[id]);
         set();
+        console.log("siegfhgh", quantity)
     }
     const [count, setcount] = useState([]);
 
@@ -50,6 +51,7 @@ function BrowseFood(props) {
     console.log()
     console.log("Total is " + Totalcount);
     console.log("The array elements are: " + selectList);
+    console.log(selectList)
     const [menuList, setMenuList] = useState([])
     const [lunchList, setLunchList] = useState([])
     const [snackList, setSnackList] = useState([])
@@ -76,39 +78,44 @@ function BrowseFood(props) {
             console.log(response.data);
         });
     }, []);
+    var count1 = selectList.length
+    var s = 0;
+    var grandTotal = 0;
+    for (var i = 1; i <= count1; i++) {
+        console.log("fdfth")
+        if (selectList[i] == undefined) {
 
-
-    selectList.forEach(element => {
-        // console.log("ee" + element[6])
-        if (element === undefined) {
-            console.log("nothing");
         }
         else {
-            if (element[5] === 'p') {
-                grandTotal = grandTotal + element[3];
-                Totalcount = Totalcount + 1;
-                console.log(Totalcount);
-            }
-            else if (element[5] === 'n') {
-                grandTotal = (grandTotal - element[3]);
-                // Totalcount = Totalcount - 1;
-                console.log(Totalcount);
-            }
-            else if (element[5] === 'cp') {
-                Totalcount = Totalcount + element[4];
-                grandTotal = grandTotal + element[3];
-                console.log(Totalcount);
-            }
-            else if (element[5] === 'cn') {
-                // Totalcount = Totalcount - element[5];
-                grandTotal = (grandTotal - element[3]);
-                console.log(Totalcount);
-            }
+            console.log(selectList[i][2])
+            s = s + selectList[i][2]
+            grandTotal = grandTotal + selectList[i][3]
+            console.log(s)
         }
-        if (grandTotal < 0) {
-            grandTotal = grandTotal * -1;
-        }
-    });
+    }
+    // selectList.forEach(element => {
+    //     // console.log("ee" + element[6])
+    //     if (element === undefined) {
+    //         console.log("nothing");
+    //     }
+    //     else {
+    //         if (element[5] === 'p') {
+    //             grandTotal = grandTotal + element[3];
+    //         }
+    //         else if (element[5] === 'n') {
+    //             grandTotal = (grandTotal - element[3]);
+    //         }
+    //         else if (element[5] === 'cp') {
+    //             grandTotal = grandTotal + element[3];
+    //         }
+    //         else if (element[5] === 'cn') {
+    //             grandTotal = (grandTotal - element[3]);
+    //         }
+    //     }
+    //     if (grandTotal < 0) {
+    //         grandTotal = grandTotal * -1;
+    //     }
+    // });
 
     console.log("Grand Total is" + grandTotal);
     const [loginName, setFullName] = useState();
@@ -167,7 +174,7 @@ function BrowseFood(props) {
     var food = foodstate;
     return (
         <div>
-            <Header loginDetails={loginName} loginEmail={email} number={Totalcount} onNumberChange={onNumberChange} />
+            <Header loginDetails={loginName} loginEmail={email} number={s} onNumberChange={onNumberChange} />
             <div className="dropdownb">
                 {(() => {
 

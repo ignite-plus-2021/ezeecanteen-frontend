@@ -22,7 +22,6 @@ function BrowseFood(props) {
     const [ord, setOrd] = useState(0);
     const set = () => {
         setOrd(orderNo[0].orderNo);
-        console.log(ord);
     }
     const [number, setNumber] = useState(0);
     const [selectList, setSelectList] = useState([])
@@ -36,22 +35,12 @@ function BrowseFood(props) {
     const handleQuery = (id, names, quantity, total, price, np) => {
         const newList = [...selectList];
         newList[id] = [id, names, quantity, total, price, np];
-        console.log(id);
         setSelectList(newList);
-        console.log(newList[id]);
-        set();
-        console.log("siegfhgh", quantity)
     }
     const [count, setcount] = useState([]);
-
-
     const onNumberChange = () => {
         setNumber(number);
     }
-    console.log()
-    console.log("Total is " + Totalcount);
-    console.log("The array elements are: " + selectList);
-    console.log(selectList)
     const [menuList, setMenuList] = useState([])
     const [lunchList, setLunchList] = useState([])
     const [snackList, setSnackList] = useState([])
@@ -63,7 +52,6 @@ function BrowseFood(props) {
     }, []);
 
     useEffect(() => {
-
         console.log(foodstate === "lunch");
         Axios.get('http://localhost:3001/api/get/lunch').then((response) => {
             setLunchList(response.data)
@@ -71,7 +59,6 @@ function BrowseFood(props) {
         });
     }, []);
     useEffect(() => {
-
         console.log(foodstate === "snacks");
         Axios.get('http://localhost:3001/api/get/snacks').then((response) => {
             setSnackList(response.data)
@@ -82,9 +69,8 @@ function BrowseFood(props) {
     var s = 0;
     var grandTotal = 0;
     for (var i = 1; i <= count1; i++) {
-        console.log("fdfth")
         if (selectList[i] == undefined) {
-
+            console.log("undefined")
         }
         else {
             console.log(selectList[i][2])
@@ -93,30 +79,6 @@ function BrowseFood(props) {
             console.log(s)
         }
     }
-    // selectList.forEach(element => {
-    //     // console.log("ee" + element[6])
-    //     if (element === undefined) {
-    //         console.log("nothing");
-    //     }
-    //     else {
-    //         if (element[5] === 'p') {
-    //             grandTotal = grandTotal + element[3];
-    //         }
-    //         else if (element[5] === 'n') {
-    //             grandTotal = (grandTotal - element[3]);
-    //         }
-    //         else if (element[5] === 'cp') {
-    //             grandTotal = grandTotal + element[3];
-    //         }
-    //         else if (element[5] === 'cn') {
-    //             grandTotal = (grandTotal - element[3]);
-    //         }
-    //     }
-    //     if (grandTotal < 0) {
-    //         grandTotal = grandTotal * -1;
-    //     }
-    // });
-
     console.log("Grand Total is" + grandTotal);
     const [loginName, setFullName] = useState();
     const [email, setemail] = useState()
@@ -144,8 +106,6 @@ function BrowseFood(props) {
         }
     });
     const [id, setId] = useState(0);
-    console.log("USER ID IS");
-    console.log(userId);
     let dineOption = 'breakfast';
     const setDineOption = () => {
         const d = new Date();
@@ -217,10 +177,8 @@ function BrowseFood(props) {
                                 console.log(foodstate === "breakfast");
                                 console.log(foodstate);
                                 const d = new Date();
-
                                 var h = d.getHours();
                                 var m = d.getMinutes();
-
                                 var bstart = 8
                                 var bEndHr = 11;
                                 var bEndMin = 30;

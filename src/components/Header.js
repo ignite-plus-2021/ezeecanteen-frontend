@@ -27,12 +27,10 @@ class Header extends React.Component {
         this.props.onNumberChange(event.target.value)
     }
     render() {
+        //Getting user details from state
         var { isLoaded, fullName, email } = this.state;
         const { loginDetails } = this.props;
         const LoginEmail = this.props.loginEmail
-        console.log("errgt")
-        console.log(loginDetails)
-        console.log(LoginEmail)
         var fullname = '';
         if (loginDetails && loginDetails.fullname) {
             if (loginDetails.fullname.length > 6) {
@@ -44,10 +42,6 @@ class Header extends React.Component {
                 email = LoginEmail.email
             }
         }
-        console.log("Fullname in header")
-        console.log(loginDetails)
-        console.log(fullname)
-        console.log(email)
         return (
             <div>
                 <div className="header1">
@@ -73,7 +67,6 @@ class Header extends React.Component {
                                 <span className="header__secondOne">{fullname}
                                 </span>
                             }
-
                         </div></div>
                     <div className="header__third">
                         <Badge onChange={this.handleInputChange} badgeContent={this.props.number} color="secondary" showZero>
@@ -99,7 +92,6 @@ class Header extends React.Component {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-
                             </div>
                         </div>
                     </div>

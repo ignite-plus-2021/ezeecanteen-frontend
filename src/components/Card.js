@@ -13,21 +13,21 @@ const Card = ({ id, image, price, names, rating, votes, handleQuery }) => {
         }
     ];
     const [item, setitem] = React.useState(availableItems);
+    //On clicking the add button, items are added to the cart
     const onInputChange = (e) => {
         const currentItems = [...item];
         currentItems[e].quantity += 1;
         currentItems[e].total += currentItems[e].price.price;
         setitem(currentItems);
-        console.log(currentItems);
         handleQuery(currentItems[e].id.id, currentItems[e].name.names, currentItems[e].quantity, currentItems[e].total, currentItems[e].price.price, 'p');
     }
+    //On clicking the minus button, items are removed from the cart
     const decreaseQuantity = index => {
         const currentItems = [...item];
         if (currentItems[index].quantity > 0) {
             currentItems[index].quantity -= 1;
             currentItems[index].total -= currentItems[index].price.price;
             setitem(currentItems);
-            console.log(currentItems);
             handleQuery(currentItems[index].id.id, currentItems[index].name, currentItems[index].quantity, currentItems[index].total, currentItems[index].price.price, 'n');
         }
     };

@@ -24,7 +24,8 @@ class Signup extends Component {
         emailError: '',
         email1: ''
     };
-
+    
+//email validation function
     validateEmail = (e) => {
         this.state.email1 = e.target.value
         // this.setState({ email: this.state.email1 })
@@ -40,17 +41,15 @@ class Signup extends Component {
         }
     };
 
+    //Password toggling function
     togglePasswordVisiblity = () => {
         const { isPasswordShown } = this.state;
         this.setState({ isPasswordShown: !isPasswordShown });
     };
 
+    //Signup onclick function
     signup = (props) => {
-
-
-
         Axios.post('http://localhost:3001/api/insert',
-
             {
                 fullname: this.state.fullname,
                 email: this.state.email,
@@ -76,12 +75,10 @@ class Signup extends Component {
                         this.props.history.push('/VendorHomePage')
                     }
                 }
-
             }).catch((err) => {
                 console.log('Sign up error -' + err)
             });
     }
-
     render = () => {
         const { isPasswordShown } = this.state;
         return (

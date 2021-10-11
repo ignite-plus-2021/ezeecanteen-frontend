@@ -10,14 +10,12 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 var CryptoJS = require("crypto-js");
 function Payment(props) {
-    console.log(props.location.state)
     const selectedList = props.location.state;
-    console.log(selectedList);
-    console.log(selectedList.fullName)
     const fullName = selectedList.fullName
     const [menuList, setMenuList] = useState([])
     const [lunchList, setLunchList] = useState([])
     const [snackList, setSnackList] = useState([])
+    //Getting meal menus
     useEffect(() => {
         Axios.get('http://localhost:3001/api/get').then((response) => {
             setMenuList(response.data)
@@ -26,13 +24,11 @@ function Payment(props) {
     useEffect(() => {
         Axios.get('http://localhost:3001/api/get/lunch').then((response) => {
             setLunchList(response.data)
-            console.log(response.data);
         });
     }, []);
     useEffect(() => {
         Axios.get('http://localhost:3001/api/get/snacks').then((response) => {
             setSnackList(response.data)
-            console.log(response.data);
         });
     }, []);
     const [accountList, setAccountList] = useState([]);
@@ -41,6 +37,7 @@ function Payment(props) {
             setAccountList(response.data)
         });
     }, []);
+    //Creating instance of time to get the time of order
     var date = new Date();
     var day = date.getDate();
     var month = date.getMonth() + 1;
@@ -50,33 +47,16 @@ function Payment(props) {
     var tifOptions = [];
     var time2 = new Date();
     var testTime = time2.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' });
-    console.log(testTime);
-    console.log(time);
     Object.keys(selectedList).forEach(function (key) {
         tifOptions.push(<option value={key}>{selectedList[key]}</option>);
     });
-    console.log("EZEECANTEEN")
-    console.log(tifOptions);
-    console.log(tifOptions.length);
-    console.log(tifOptions[0].props.children);
     const [itemList, setItemList] = useState(tifOptions);
-    console.log(itemList);
     var grandTotal = 0;
-    console.log(tifOptions[tifOptions.length - 4].props.children.fullName);
-    console.log(typeof (tifOptions[tifOptions.length - 4].props.children));
     var username = tifOptions[tifOptions.length - 4].props.children.fullName;
-    console.log(tifOptions[tifOptions.length - 3].props.children);
-    console.log(typeof (tifOptions[tifOptions.length - 3].props.children));
     var orderno = tifOptions[tifOptions.length - 3].props.children + 1;
-    console.log(tifOptions[tifOptions.length - 2].props.children);
     var userID = tifOptions[tifOptions.length - 2].props.children;
-    console.log(userID);
-    console.log(tifOptions[tifOptions.length - 1].props.children);
     var dineOption = tifOptions[tifOptions.length - 1].props.children;
-    console.log(dineOption);
     var data = tifOptions[tifOptions.length - 4].props.children;
-    console.log(data);
-    console.log(tifOptions[tifOptions.length - 4].props.children.email)
     const fullname = username;
     const email = tifOptions[tifOptions.length - 4].props.children.email
     tifOptions.forEach(element => {
@@ -84,7 +64,6 @@ function Payment(props) {
             return null;
         }
         else {
-            console.log("From else " + element.props.children[3] + " " + typeof (element.props.children[3]));
             grandTotal = grandTotal + element.props.children[3];
         }
     });
@@ -105,7 +84,7 @@ function Payment(props) {
     var cnoDecrypt;
     var expdDecrypt;
     var cvcnumDecrypt;
-    console.log("Is account present" + accountPresent);
+    //Encrypting pci data
     if (accountPresent === 1) {
         var bytes = CryptoJS.AES.decrypt(cno, 'my-secret-key@123');
         cnoDecrypt = bytes.toString(CryptoJS.enc.Utf8);
@@ -114,7 +93,6 @@ function Payment(props) {
         var bytes2 = CryptoJS.AES.decrypt(cvcnum, 'my-secret-key@123');
         cvcnumDecrypt = bytes2.toString(CryptoJS.enc.Utf8);
     }
-    console.log(grandTotal);
     const [name, setName] = useState("");
     const [cardNo, setCardNo] = useState(0);
     const [edate, setEdate] = useState("");
@@ -123,15 +101,10 @@ function Payment(props) {
     const [cvcInput, setCVCInput] = useState(0);
     if (cardNo !== "" && edate !== "" && cvcNo !== "") {
         var cardNoEncrypt = CryptoJS.AES.encrypt(cardNo, 'my-secret-key@123').toString();
-        console.log('Encrypt Data -')
-        console.log(cardNoEncrypt);
         var edateEncrypt = CryptoJS.AES.encrypt(edate, 'my-secret-key@123').toString();
-        console.log('Encrypt Data edate-')
-        console.log(edateEncrypt);
         var cvcNoEncrypt = CryptoJS.AES.encrypt(cvcNo, 'my-secret-key@123').toString();
-        console.log('Encrypt Data cvc no-')
-        console.log(cvcNoEncrypt);
     }
+    //Function for Placing the order
     const placeOrder = () => {
         tifOptions.map((food, i) => {
             if (food.props.children === undefined) {
@@ -147,11 +120,11 @@ function Payment(props) {
                     ordno: orderno,
                     timet: testTime,
                 }).then((response) => {
-                    console.log(response);
                 });
             }
         });
     };
+    //to post the carddetails
     const cardDetails = () => {
         Axios.post('http://localhost:3001/carddetails', {
             cname: name,
@@ -160,14 +133,13 @@ function Payment(props) {
             Nocvc: cvcNoEncrypt,
             uid: userID,
         }).then((response) => {
-            console.log(response);
         });
     }
+    //Functions called onClick
     const bothFunctions = () => {
         placeOrder();
         cardDetails();
     }
-    console.log(props.location.state.fullName)
     const loginName = { fullname: fullname }
     const loginEmail = { email: email }
     const [option, setOption] = useState("Credit/Debit Cards");
@@ -188,7 +160,6 @@ function Payment(props) {
                                                 id={option == val.title ? "active" : ""}
                                                 onClick={() => {
                                                     setOption(val.title);
-                                                    console.log(option);
                                                 }}>
                                                 <div id="icon">{val.icon}</div>
                                                 <div id="title">{val.title}</div>
@@ -206,7 +177,6 @@ function Payment(props) {
                                             {(() => {
                                                 if (accountPresent === 0) {
                                                     if (presentstatus) {
-                                                        console.log()
                                                         return (
                                                             <div>
                                                                 <div className="heading1">Enter Card Details</div>
@@ -283,7 +253,6 @@ function Payment(props) {
                                                                     <div className="cvcInput"><input type="password" placeholder="CVV" style={{ width: "98%", height: "25px", margin: "3px" }} onChange={e => setCVCInput(e.target.value)} /></div>
                                                                 </div>
                                                                 {(() => {
-                                                                    console.log(cvcnumDecrypt);
                                                                     if (cvcInput === cvcnumDecrypt) {
                                                                         return (
                                                                             <Link condition={cvcInput === cvcnumDecrypt} to={{
@@ -302,9 +271,6 @@ function Payment(props) {
                                                                         )
                                                                     }
                                                                 })()}
-                                                                {console.log(cvcnumDecrypt)}
-                                                                {console.log(cvcInput === cvcnumDecrypt)}
-
                                                             </div>
                                                         </div>
                                                     )
@@ -374,9 +340,6 @@ function Payment(props) {
                                             return null;
                                         }
                                         else {
-                                            console.log("From else " + food.props.children[3]);
-
-
                                             if (food.props.children[2] >= 1) {
                                                 return (
                                                     <div>
@@ -389,7 +352,6 @@ function Payment(props) {
                                                                                 if (val.id === food.props.children[0]) {
                                                                                     const buff = new Buffer(val.image.data);
                                                                                     const newimg = buff.toString('base64');
-                                                                                    console.log("inside the menulist loop");
                                                                                     return (
                                                                                         <img src={`data:image/jpg;base64,${newimg}`} alt="images" />
                                                                                     )
@@ -406,7 +368,6 @@ function Payment(props) {
                                                                                 if (val.id === food.props.children[0]) {
                                                                                     const buff = new Buffer(val.image.data);
                                                                                     const newimg = buff.toString('base64');
-                                                                                    console.log("inside the menulist loop");
                                                                                     return (
                                                                                         <img src={`data:image/jpg;base64,${newimg}`} alt="images" />
                                                                                     )
@@ -422,9 +383,7 @@ function Payment(props) {
                                                                             {snackList.map((val) => {
                                                                                 if (val.id === food.props.children[0]) {
                                                                                     const buff = new Buffer(val.image.data);
-                                                                                    const newimg = buff.toString('base64');
-                                                                                    console.log("inside the menulist loop");
-                                                                                    return (
+                                                                                    const newimg = buff.toString('base64'); return (
                                                                                         <img src={`data:image/jpg;base64,${newimg}`} alt="images" />
                                                                                     )
                                                                                 }

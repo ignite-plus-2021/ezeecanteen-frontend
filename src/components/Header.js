@@ -18,8 +18,6 @@ class Header extends React.Component {
             logindetails: [3]
         };
     };
-    componentDidMount = () => {
-    };
     state = {
         badgeContent: 0
     };

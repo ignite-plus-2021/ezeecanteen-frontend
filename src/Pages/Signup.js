@@ -28,7 +28,6 @@ class Signup extends Component {
 //email validation function
     validateEmail = (e) => {
         this.state.email1 = e.target.value
-        // this.setState({ email: this.state.email1 })
         console.log(this.state.email1)
         if (validator.isEmail(this.state.email1)) {
             this.setState({ emailError: 'Valid Email :)' })

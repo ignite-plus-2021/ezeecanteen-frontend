@@ -14,24 +14,21 @@ class ForgotPassword extends Component {
     state = {
         isPasswordShown: false
     };
-
+    //Function to toggle the password on checking the box
     togglePasswordVisiblity = () => {
         const { isPasswordShown } = this.state;
         this.setState({ isPasswordShown: !isPasswordShown });
     };
-
+    //Forgot password function
     forgotpassword = (props) => {
         this.setState({ email: this.state.email });
         this.setState({ password: this.state.password });
-        console.log({ email: this.state.email });
-        console.log({ password: this.state.password });
 
         Axios.post('http://localhost:3001/api/forgot',
             {
                 email: this.state.email,
                 password: this.state.password
             }).then(response => {
-                console.log(response)
                 if (response.data.message) {
                     alert(response.data.message);
                 }

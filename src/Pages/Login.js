@@ -9,22 +9,23 @@ class Login extends Component {
         super(props);
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            isLogined: false
         };
     }
-    
-    //Login function
+    //Function called on clicking sign in button (the login function)
     loginfunction = (props) => {
-
+        if ((this.state.email === "shivanyapm22@gmail.com") && (this.state.password === "shivanya")) {
+            this.setState({ isLogined: true });
+        }
         Axios.post('http://localhost:3001/login',
             {
                 email: this.state.email,
                 password: this.state.password
             }).then((response) => {
                 if (response.data.message) {
-
                     alert(response.data.message);
-                    console.log(this.state.visible);
+                    this.setState({ isLogined: false });
                 }
                 else {
                     if (response.data.data[0].usertype === 'Personal') {
@@ -36,11 +37,9 @@ class Login extends Component {
                                 fullName: fullName
                             }
                         });
-                        console.log(this.state.visible);
                     }
                     else if (response.data.data[0].usertype === 'Business') {
                         this.props.history.push('/FoodPartnerHome')
-                        console.log(this.state.visible);
                     }
                 }
             })

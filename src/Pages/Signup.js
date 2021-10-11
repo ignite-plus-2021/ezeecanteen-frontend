@@ -13,40 +13,48 @@ class Signup extends Component {
             fullname: '',
             email: '',
             password: '',
-            usertype: ''
+            usertype: '',
+            psw1: ''
         };
     }
 
     state = {
-        isPasswordShown: false
-    };
-    state = {
+        isPasswordShown: false,
         emailError: '',
-        email1: ''
+        email1: '',
+        emailError1: ''
     };
-    
-//email validation function
+    //Function to validate email
     validateEmail = (e) => {
         this.state.email1 = e.target.value
-        console.log(this.state.email1)
         if (validator.isEmail(this.state.email1)) {
-            this.setState({ emailError: 'Valid Email :)' })
-            this.setState({ email: this.state.email })
+            this.setState({ emailError: 'Valid Email' })
+            this.setState({ email: this.state.email1 })
         } else {
             this.setState({ emailError: 'Enter valid Email!' })
-        }
-        if (this.state.emailError === 'Valid Email :)') {
             this.setState({ email: '' })
         }
     };
-
-    //Password toggling function
+    //Function to validate password
+    validatepassword = (e) => {
+        this.state.psw1 = e.target.value
+        if (validator.isStrongPassword(this.state.psw1, {
+            minLength: 8, minLowercase: 1,
+            minUppercase: 1, minNumbers: 1, minSymbols: 1
+        })) {
+            this.setState({ emailError1: 'Strong Password' })
+            this.setState({ password: this.state.psw1 })
+        } else {
+            this.setState({ emailError1: 'Password should contain minimum 8 letters with atlest 1 uppercse,1 lowercase,1 special character and 1 number' })
+            this.setState({ password: '' })
+        }
+    }
+    //Function to toggle the password
     togglePasswordVisiblity = () => {
         const { isPasswordShown } = this.state;
         this.setState({ isPasswordShown: !isPasswordShown });
     };
-
-    //Signup onclick function
+    //Signup function
     signup = (props) => {
         Axios.post('http://localhost:3001/api/insert',
             {
@@ -55,12 +63,10 @@ class Signup extends Component {
                 password: this.state.password,
                 usertype: this.state.usertype
             }).then((response) => {
-                console.log(response)
                 if (response.data.message) {
                     alert(response.data.message);
                 }
                 else {
-
                     if (this.state.usertype === 'Personal') {
                         this.props.history.push({
                             pathname: '/BrowseFood',
@@ -74,10 +80,12 @@ class Signup extends Component {
                         this.props.history.push('/VendorHomePage')
                     }
                 }
+
             }).catch((err) => {
                 console.log('Sign up error -' + err)
             });
     }
+
     render = () => {
         const { isPasswordShown } = this.state;
         return (
@@ -99,7 +107,7 @@ class Signup extends Component {
                         </div>
                         <div className="form-group">
                             <label>Full name</label>
-                            <input type="text" className="form-control" placeholder="Full name" onInput={(e) => this.setState({ fullname: e.target.value })} id='fullname' required />
+                            <input type="text" id="fullname" className="form-control" placeholder="Full name" onInput={(e) => this.setState({ fullname: e.target.value })} id='fullname' required />
                         </div>
                         <br></br>
 
@@ -112,7 +120,8 @@ class Signup extends Component {
 
                         <div className="form-group">
                             <label>Set Password</label>
-                            <input type={isPasswordShown ? "text" : "password"} className="form-control" placeholder="Enter password" required onChange={(e) => this.setState({ password: e.target.value })} />
+                            <input type={isPasswordShown ? "text" : "password"} className="form-control" placeholder="Enter password" required onChange={(e) => this.validatepassword(e)} />
+                            <span className="text-danger">{this.state.emailError1}</span><br />
                             <input type="checkbox" onClick={this.togglePasswordVisiblity} /> Show Password
                         </div>
                         <br></br>

@@ -11,13 +11,15 @@ const OrderDash = (props) => {
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
     const [time, setTime] = useState([]);
-    const [status, setValue] = useState('');
     const [menuList, setMenuList] = useState([]);
+    const [status, setValue] = useState('');
+    //Get the order list
     useEffect(() => {
         Axios.get('http://localhost:3001/api/fetch').then((response) => {
             setMenuList(response.data)
         });
     }, []);
+    //Configuring email.js
     const templateParams = {
         to_name: 'Shivanya',
         from_name: 'EzeeCanteen',
@@ -25,9 +27,6 @@ const OrderDash = (props) => {
         reply_to: 'shivanyapm22@gmail.com'
     };
     function handleChange(e, i, a) {
-        console.log(e);
-        console.log(i);
-        console.log(a);
         setValue(e.target.value);
         if (e.target.value === 'Completed') {
             Axios.post('http://localhost:3001/api/fetch1', {
@@ -41,42 +40,19 @@ const OrderDash = (props) => {
                     var notification = new Notification("ORDER COMPLETED!", options);
                 }
             });
-            console.log('order is completed');
             emailjs.send('service_af58f65', 'template_v2kunaz', templateParams, 'user_vRMtbv90VJBnqpTmFWrJN');
             var timeL = [...time];
             timeL[i - 1] = date.toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' })
-            console.log(timeL);
             setTime(timeL);
+            //Changing order status
             Axios.post('http://localhost:3001/orderstatus', {
                 Ostatus: e.target.value,
                 Oid: i,
                 oNo: a,
             }).then((response) => {
-                console.log(response);
             });
         }
-
-
     }
-    var count = menuList.length
-    console.log(count)
-    const [a, seta] = useState([])
-    for (var i = 0; i < count; i++) {
-        a[i] = menuList[i].orderStatus
-        Axios.post('http://localhost:3001/orderstatus1', {
-
-            Oid: menuList[i].id,
-            oNo: menuList[i].orderNo
-        }).then((response) => {
-
-
-        }).catch((err) => {
-            console.log(err)
-        });
-
-    }
-    var j = 0
-    console.log(time);
     return (
         <div>
             <VendorHeader />
@@ -106,15 +82,10 @@ const OrderDash = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-
                         {
                             menuList.map((val, l) => {
-                                // for (var i = 0; i < count; i++) {
-
                                 if (val.orderStatus === "In Progress") {
-
                                     return (
-
                                         <tr>
                                             <td>{val.id}</td>
                                             <td>{val.orderNo}</td>
@@ -128,17 +99,12 @@ const OrderDash = (props) => {
                                                     <option value="Completed">Completed</option>
                                                 </select>
                                             </td>
-
                                             <td>{time[l]}</td>
                                         </tr>
                                     )
                                 }
-
-
                             }
-
                             )}
-
                     </tbody>
                 </table>
             </div>

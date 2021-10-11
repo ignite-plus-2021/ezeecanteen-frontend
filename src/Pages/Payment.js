@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 import Axios from 'axios'
 
 function CompletePayment(props) {
-    console.log(props.location.state.data);
     var data = props.location.state.data;
-    console.log(data);
     const loginEmail = { email: props.location.state.data.email }
     const loginName = { fullname: props.location.state.data.fullName }
     return (

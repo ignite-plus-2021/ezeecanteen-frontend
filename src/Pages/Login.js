@@ -12,6 +12,8 @@ class Login extends Component {
             password: ""
         };
     }
+    
+    //Login function
     loginfunction = (props) => {
 
         Axios.post('http://localhost:3001/login',

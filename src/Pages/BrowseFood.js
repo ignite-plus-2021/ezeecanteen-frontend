@@ -90,7 +90,6 @@ function BrowseFood(props) {
             console.log(s)
         }
     }
-    console.log("Grand Total is" + grandTotal);
     const [loginName, setFullName] = useState();
     const [email, setemail] = useState()
     //getting fullname and email to display in header from state

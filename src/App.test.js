@@ -8,7 +8,7 @@ import Login from '../src/Pages/Login';
 import logoImage from '../src/assets/logos/logo_.jpeg';
 import Signup from '../src/Pages/Signup';
 import Forgot from '../src/Pages/ForgotPassword';
-test('renders learn react link', () => {
+test('renders app', () => {
   const div = document.createElement('div')
   ReactDOM.render(<App />, div)
   console.log("true")

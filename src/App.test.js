@@ -39,12 +39,12 @@ describe('Test case for testing login', () => {
   it('password check', () => {
     wrapper = shallow(<Login />);
     wrapper.find('input[type="password"]').simulate('change', { target: { name: 'password', value: 'shivanya' } });
-    expect(wrapper.state('password')).toEqual('shivanya');
+    expect(wrapper.state('password')).toEqual('Shivanya!1');
   })
   it('login check with right data', () => {
     wrapper = shallow(<Login />);
     wrapper.find('input[type="text"]').simulate('change', { target: { name: 'email', value: 'shivanyapm22@gmail.com' } });
-    wrapper.find('input[type="password"]').simulate('change', { target: { name: 'password', value: 'shivanya' } });
+    wrapper.find('input[type="password"]').simulate('change', { target: { name: 'password', value: 'Shivanya!1' } });
     wrapper.find('button').simulate('click');
     expect(wrapper.state('isLogined')).toBe(true);
   })

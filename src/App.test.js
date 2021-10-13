@@ -46,7 +46,7 @@ describe('Test case for testing login', () => {
     wrapper.find('input[type="text"]').simulate('change', { target: { name: 'email', value: 'shivanyapm22@gmail.com' } });
     wrapper.find('input[type="password"]').simulate('change', { target: { name: 'password', value: 'shivanya' } });
     wrapper.find('button').simulate('click');
-    expect(wrapper.state('isLogined')).not.toBe(true);
+    expect(wrapper.state('isLogined')).toBe(true);
   })
   it('login check with wrong data', () => {
     wrapper = shallow(<Login />);

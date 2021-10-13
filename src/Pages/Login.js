@@ -15,7 +15,7 @@ class Login extends Component {
     }
     //Function called on clicking sign in button (the login function)
     loginfunction = (props) => {
-        if ((this.state.email === "shivanyapm22@gmail.com") && (this.state.password === "shivanya")) {
+        if ((this.state.email === "shivanyapm22@gmail.com") && (this.state.password === "Shivanya!1")) {
             this.setState({ isLogined: true });
         }
         Axios.post('http://localhost:3001/login',

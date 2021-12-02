@@ -1,0 +1,40 @@
+.flexdash1 {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: 10px;
+  padding-left: 0;
+  margin-top: 190px;
+}
+
+.flex-item {
+  text-align: center;
+  border-left: 0;
+}
+
+.buttonhome {
+  margin-top: 15px;
+  background-color: rgb(12, 30, 53);
+  color: #ffffff;
+  border-radius: 8px;
+  width: 185px;
+  height: 40px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  top: 50%;
+  font-weight: bold;
+}
+.bodydash {
+  width: 100%;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+.buttonhome:hover {
+  cursor: pointer;
+  background-color: #2d77b0;
+  font-style: normal;
+}

@@ -1,30 +1,63 @@
-.header{
-    background-color: #183454;
-    display:flex;
-    align-items: center;
-    
+.header1 {
+  background-color: #183454;
+  display: flex;
+  align-items: center;
+  height: 80px;
+  padding: 0;
 }
-.header__first{
-    padding: 5px;
-    flex: 1;
+.header__first {
+  padding-left: 20px;
+  flex: 1;
 }
-.header__first>img{
-    width:200px;
-   object-fit:contain;
+.header__first > img {
+  width: 200px;
+  height: 150px;
+  object-fit: contain;
+  object-position: left;
 }
-.header__second{
-    align-items: center;
-    padding-right: 20px;
-    color:white;
-    display: flex;
+.headerdrop {
+  background-color: transparent;
+  border: none;
+  margin-right: 50px;
 }
-.header__second>.MuiSvgIcon-root{
-    color: white;
+
+.headerdrop:onclick {
+  background-color: transparent;
+  border: none;
 }
-.header__third{
-    align-items: center;
-    padding-right: 20px;
+.headericondiv {
+  display: flex;
+  justify-content: space-evenly;
+  margin-right: 60px;
 }
-.header__third>.MuiSvgIcon-root{
-    color: white;
+.ICONhead {
+  color: white;
+}
+.header__second {
+  align-items: center;
+
+  color: white;
+  width: 20px;
+  display: flex;
+}
+.header__second1 {
+  align-items: center;
+  margin-left: 30px;
+  color: white;
+  width: 20px;
+  display: flex;
+}
+.header__second > .MuiSvgIcon-root {
+  color: white;
+}
+.header__third {
+  margin-right: 30px;
+}
+.Logout,
+.Logout:hover,
+.Logout:active,
+.Logout:focus {
+  color: aliceblue;
+  text-decoration: none;
+  margin-right: 30px;
 }

@@ -1,0 +1,26 @@
+.continue {
+  color: #f05464;
+  color: white;
+  text-align: center;
+  /*margin-right: 5px !important;*/
+  margin-left: auto;
+  width: 5cm;
+  height: 45px;
+}
+
+#total {
+  font-weight: bold;
+}
+
+.footer {
+  background-color: white;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  /*justify-content: end;*/
+  align-self: flex-end;
+  /*margin-right: auto;*/
+}
